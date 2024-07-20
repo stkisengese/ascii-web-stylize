@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ascii-Art-Stylize</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-image: url('ascii4.jpg'); /* Add your image URL here */
+            background-size: cover; /* Cover the entire body */
+            background-position: center; /* Center the background image */
+            background-attachment: fixed; /* Fix the background image during scrolling */
+            padding-top: 5em; /* Space for the fixed header */
+        }
+        .header {
+            background-color: rgba(76, 175, 80, 0.8); /* Semi-transparent header background */
+            color: white;
+            padding: 1em;
+            width: 100%;
+            text-align: center;
+            position: fixed;
+            opacity: 1;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            font-size: 2.5em; /* Increased font size */
+        }
+        .form {
+            background: rgba(144, 238, 144, 0.8); /* Light greenish with transparency */
+            padding: 4em; /* Greatly increased padding */
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin: 1em;
+            /*margin-top: -3em; /* Move form upwards */
+            width: 95%; /* Greatly increased width */
+            max-width: 800px; /* Greatly increased max width */
+        }
+        textarea {
+            width: 100%;
+            height: 300px; /* Greatly increased height */
+            padding: 1em;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: both; /* Allow both horizontal and vertical resizing */
+            overflow: auto; /* Enable both horizontal and vertical scrolling */
+            white-space: pre-wrap; /* Handle text wrapping and maintain whitespace */
+            font-family: inherit; /* Ensure consistent font family */
+            font-size: 1em; /* Ensure consistent font size */
+            line-height: 1.5; /* Improved line height for readability */
+            box-sizing: border-box; /* Ensure padding is included in the width/height calculation */
+        }
+        .radio {
+            display: flex;
+            justify-content: space-around;
+            margin: 2em 0; /* Increased margin for better spacing */
+            font-size: 1.5em; /* Increased font size */
+        }
+        .radio input[type="radio"] {
+            transform: scale(1.5); /* Increased size of radio button */
+            margin-right: 0.5em;
+        }
+        .button {
+            text-align: center;
+            margin-top: 2em; /* Increased margin */
+        }
+        .button input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 1em 4em; /* Increased padding */
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 1.5em; /* Increased font size */
+        }
+        .button input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .footer {
+            background-color: rgba(51, 51, 51, 0.8); /* Semi-transparent footer background */
+            color: white;
+            padding: 1em;
+            width: 100%;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+        }
+        @media (min-width: 361px) and (max-width: 600px) {
+            .header{
+                position: absolute;
+            }
+            .form {
+                padding: 2em;
+                width: 95%;
+                margin-block: 126px;
+               /* margin-top: 1.5em; /* Adjust for smaller screens */
+            }
+            .radio {
+                flex-direction: column;
+                align-items: center;
+                display: grid;
+            }
+        }
+        @media (max-width: 360px) {
+            .header {
+                position: absolute;
+            }
+            .form {
+                padding: 2em;
+                width: 95%;
+                margin-block: 126px;
+               /* margin-bottom: 100px;
+               /* margin-top: 1.5em; /* Adjust for smaller screens */
+            }
+            .radio {
+                flex-direction: column;
+                align-items: center;
+                display: grid;
+            }
+        }
+        @media (min-width: 601px) and (max-width: 980px) {
+            .header{
+                position: absolute;
+            }
+            .form {
+                padding: 2em;
+                width: 95%;
+                margin-block: 110px;
+               /* margin-top: 1.5em; /* Adjust for smaller screens */
+            }
+            .radio {
+                flex-direction: column;
+                align-items: center;
+                display: grid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <header><b>ASCII ART WEB STYLIZE</b></header>
+    </div>
+    <div class="form">
+        <form>
+            <div class="textarea">
+                <textarea name="text" id="text" cols="30" rows="10" placeholder="Enter text here..."></textarea>
+            </div>
+            <div class="radio">
+                <label><input type="radio" name="banner" value="Standard"> Standard</label>
+                <label><input type="radio" name="banner" value="Shadow"> Shadow</label>
+                <label><input type="radio" name="banner" value="Thinkertoy"> Thinkertoy</label>
+            </div>
+            <div class="button">
+                <input type="submit" value="submit">
+            </div>
+        </form>
+    </div>
+    <div class="footer">
+        <footer>Developed by Maurice Ombewa</footer>
+    </div>
+</body>
+</html>
