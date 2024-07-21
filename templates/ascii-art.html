@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="author" content="Stephen Kisengese & Maurice Ombewa">
+	<!-- <meta name="description" content="A web application that converts text to ASCII art">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="static/css/styles.css"> -->
+	<title>Ascii Art Web</title>
+	<style>
+		header{
+			color: coral;
+			text-align: center;
+		}
+		.banner{
+			background: rgb(172, 153, 130);
+			color: darkblue;
+			text-align: left;
+			overflow: auto;
+			white-space: nowrap;
+			padding: 10px;
+		}
+		pre {
+			display: inline-block;
+		}
+		a {
+			color: darkblue;
+            text-decoration: none;
+			margin-left: 10px;
+        }
+	
+	</style>
+</head>
+<body>
+	<header><h1>Ascii Art Web</h1></header>
+	<div class="banner">
+		<p>Text: {{.Text}}</p>
+		<pre>{{.AsciiArt}}</pre>
+	</div>
+	<a href="/">Back to HomePage</a>
+</body>
+</html>

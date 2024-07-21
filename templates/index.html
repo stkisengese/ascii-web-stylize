@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="author" content="Stephen Kisengese & Maurice Ombewa">
+	<meta name="description" content="A web application that converts text to ASCII art">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="static/css/styles.css">
+	<title>Ascii Art Web</title>
+</head>
+<body>
+	<h1>Ascii Art Web</h1>
+	
+	<div class="banner">
+		<p>This program takes your input and converts it to its ascii art form of your own chossing between the three banner files (Thinkertoy, Shadow & Standard)</p>
+		<form action="/ascii-art" method="post">
+			<textarea name="text" id="text" cols="20" rows="4" placeholder="Enter text here..."></textarea>
+			<br>
+			<input type="radio" name="banner" value="shadow.txt"> Shadow <br>
+			<input type="radio" name="banner" value="standard.txt"> Standard <br>
+			<input type="radio" name="banner" value="thinkertoy.txt"> Thinkertoy <br>
+			<br>
+			<button type="submit">Generate Ascii Art</button>
+		</form>
+	</div>
+</body>
+</html>
