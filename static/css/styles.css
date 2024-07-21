@@ -63,22 +63,20 @@ textarea {
     transform: scale(1.5); /* Increased size of radio button */
     margin-right: 0.5em;
 }
-.button {
+.button [type="submit"]{
     text-align: center;
     margin-top: 2em; /* Increased margin */
-}
-.button input[type="submit"] {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 1em 4em; /* Increased padding */
-    text-transform: uppercase;
-    cursor: pointer;
-    border-radius: 4px;
-    font-size: 1.5em; /* Increased font size */
-}
-.button input[type="submit"]:hover {
+    font-size: 1.5em;
+    border: 2px solid;
+    padding: 1em 2em;
+    box-sizing: border-box;
+    width: 50%;
+    margin-left: 160px;
     background-color: #45a049;
+}
+
+.button [type="submit"]:hover {
+    background-color: green;
 }
 .footer {
     background-color: rgba(51, 51, 51, 0.8); /* Semi-transparent footer background */
