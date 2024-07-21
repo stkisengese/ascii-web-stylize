@@ -56,12 +56,16 @@ textarea {
 .radio {
     display: flex;
     justify-content: space-around;
+    cursor: pointer;
     margin: 2em 0; /* Increased margin for better spacing */
     font-size: 1.5em; /* Increased font size */
 }
 .radio input[type="radio"] {
     transform: scale(1.5); /* Increased size of radio button */
     margin-right: 0.5em;
+}
+.radio [type="radio"]:hover{
+    cursor: pointer;
 }
 .button [type="submit"]{
     text-align: center;
@@ -71,6 +75,7 @@ textarea {
     padding: 1em 2em;
     box-sizing: border-box;
     width: 50%;
+    cursor: pointer;
     margin-left: 160px;
     background-color: #45a049;
 }
