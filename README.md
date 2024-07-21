@@ -1,2 +1,0 @@
-# ascii-art-web-stylize
-
