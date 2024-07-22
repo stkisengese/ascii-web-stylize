@@ -18,18 +18,18 @@ body {
     padding-top: 5em; /* Space for the fixed header */
 }
 .header {
-    background-color: #4CAF50; /* Header background color */
+    background-color: rgba(76, 175, 80, 0.8); /* Header background color */
     color: white;
     padding: 1em;
     width: 100%;
     text-align: center;
     position: fixed;
+    opacity: 1;
     top: 0;
     left: 0;
     z-index: 1000;
     font-size: 2.5em; /* Font size */
 }
-
 
 /* pre {
     white-space: pre-wrap; 
@@ -45,6 +45,14 @@ body {
     position: fixed;
     bottom: 0;
     font-size: 1em; /* Font size */
+}
+.footer a {
+    color: #ffffff; /* White link color */
+    text-decoration: none; /* Remove underline */
+    margin: 0 5px; /* Space between links */
+}
+.footer a:hover {
+    text-decoration: underline; /* Underline on hover */
 }
 @media (max-width: 600px) {
     .header {
