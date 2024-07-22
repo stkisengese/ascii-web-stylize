@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"html/template"
+	"log"
 	"net/http"
 )
 
@@ -22,12 +23,14 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	// Render the template for the root path
 	tmpl, err1 := (template.ParseFiles("../templates/home.html"))
 	if err1 != nil {
-		http.Error(w, "Error 500: Internal server error", http.StatusInternalServerError)
+		log.Println("Error parsing template:", err1)
+		http.Error(w, "Error 500: Something went wrong, try again.", http.StatusInternalServerError)
 		return
 	}
 
 	err := tmpl.Execute(w, nil)
 	if err != nil {
-		http.Error(w, "Error 500: Internal server error", http.StatusInternalServerError)
+		log.Println("Error executing template:", err)
+		http.Error(w, "Error 500: Something went wrong, try again later", http.StatusInternalServerError)
 	}
 }
