@@ -6,6 +6,8 @@ import (
 	"encoding/hex"
 	"fmt"
 	"html/template"
+	"io"
+	"log"
 	"net/http"
 	"os"
 	"strings"
@@ -22,6 +24,13 @@ type AsciiArtData struct {
 func AsciiArtHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "POST":
+		// Ensure the banners directory exists
+		err := os.MkdirAll("../banners", os.ModePerm)
+		if err != nil {
+			log.Println("Error creating banners directory:", err)
+			http.Error(w, "Error 500: Something went wrong, try again.", http.StatusInternalServerError)
+			return
+		}
 		// Get input text and banner from request.
 		text := r.FormValue("text")
 		banner := r.FormValue("banner")
@@ -35,8 +44,23 @@ func AsciiArtHandler(w http.ResponseWriter, r *http.Request) {
 		// Read the banner file and generate ASCII art
 		lines, err := readBanner(banner)
 		if err != nil {
-			http.Error(w, "Error 500: Internal server error", http.StatusInternalServerError)
-			return
+			log.Printf("Error reading banner: %v", err)
+			log.Println("Initializing banner download")
+
+			// Execute the command to download missing files
+			err = downloadBannerFile(banner)
+			if err != nil {
+				log.Println("Error downloading file:", err)
+				http.Error(w, "Error 500: Something went wrong, try again.", http.StatusInternalServerError)
+				return
+			}
+			log.Print("File downloaded successfully")
+			lines, err = readBanner(banner) // Read the new banner file
+			if err != nil {
+				log.Println("Error reading banner after downloading:", err)
+				http.Error(w, "Error 500: Something went wrong, try again.", http.StatusInternalServerError)
+				return
+			}
 		}
 
 		// Split the input text into multiple lines
@@ -51,7 +75,7 @@ func AsciiArtHandler(w http.ResponseWriter, r *http.Request) {
 						http.Error(w, "Error 400: Bad request", http.StatusBadRequest)
 						return
 					}
-					asciiArtBuffer.WriteString(lines[int(char-' ')*9+1+i] + " ")
+					asciiArtBuffer.WriteString(lines[int(char-' ')*9+1+i])
 				}
 				asciiArtBuffer.WriteString("\n")
 			}
@@ -62,15 +86,17 @@ func AsciiArtHandler(w http.ResponseWriter, r *http.Request) {
 
 		// Render the ASCII art template
 		data := AsciiArtData{Text: text, AsciiArt: asciiArt, Banner: banner}
-		tmpl, err := template.ParseFiles("../templates/ascii-art.html")
+		tmpl, err := template.ParseFiles("../templates/asciiart.html")
 		if err != nil {
-			http.Error(w, "Error 500: Internal server error", http.StatusInternalServerError)
+			log.Println("Error parsing template:", err)
+			http.Error(w, "Error 500: Something went wrong, try again.", http.StatusInternalServerError)
 			return
 		}
 
 		err = tmpl.Execute(w, data)
 		if err != nil {
-			http.Error(w, "Error 500: Internal server error", http.StatusInternalServerError)
+			log.Println("Error executing template:", err)
+			http.Error(w, "Error 500: Something went wrong, try again.", http.StatusInternalServerError)
 		}
 	default:
 		http.Error(w, "Error 405: Method not allowed", http.StatusMethodNotAllowed)
@@ -103,4 +129,37 @@ func readBanner(banner string) ([]string, error) {
 func checkSum(data []byte) string {
 	hash := sha256.Sum256(data)
 	return hex.EncodeToString(hash[:])
+}
+
+// DownloadBannerFile downloads a banner file from a given URL and saves it to the local directory.
+func downloadBannerFile(banner string) error {
+	url := "https://raw.githubusercontent.com/stkisengese/ascii-art-server/master/banners/" + banner
+
+	// Make the HTTP GET request
+	resp, err := http.Get(url)
+	if err != nil {
+		return fmt.Errorf("failed to download banner file: %w", err)
+	}
+	defer resp.Body.Close()
+
+	// Check for successful response
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("failed to download banner file: received status code %d", resp.StatusCode)
+	}
+
+	// Create the local file to save the banner
+	filePath := "../banners/" + banner
+	out, err := os.Create(filePath)
+	if err != nil {
+		return fmt.Errorf("failed to create banner file: %w", err)
+	}
+	defer out.Close()
+
+	// Copy the downloaded content to the local file
+	_, err = io.Copy(out, resp.Body)
+	if err != nil {
+		return fmt.Errorf("failed to write banner file: %w", err)
+	}
+
+	return nil
 }
