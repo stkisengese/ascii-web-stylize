@@ -43,7 +43,7 @@ The program reads user input, processes it, and generates ASCII art based on the
     go run main.go 8000
     ```
 6.  Enter your text and choose a banner to see the generated ASCII art by clicking on the `Generate Ascii Art` button
-7.  Click `Back to HomePage` to navigate back to test other entries.
+7.  Click `Reset` or `Back` to navigate back to test other entries.
 
 ## Authors
 - [@mombewa](https://learn.zone01kisumu.ke/git/mombewa)
