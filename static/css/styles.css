@@ -100,6 +100,14 @@ textarea {
     position: fixed;
     bottom: 0;
 }
+.footer a {
+    color: #ffffff; /* White link color */
+    text-decoration: none; /* Remove underline */
+    margin: 0 5px; /* Space between links */
+}
+.footer a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
 @media (min-width: 361px) and (max-width: 600px) {
     .header{
         position: absolute;
