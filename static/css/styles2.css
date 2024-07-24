@@ -29,3 +29,12 @@ body {
     bottom: 0;
     font-size: 1em; /* Font size */
 }
+.footer a {
+    color: #ffffff; /* White link color */
+    text-decoration: underline; /* Remove underline */
+    margin: 0 5px; /* Space between links */
+}
+.footer a:hover {
+    color: blue;
+    text-decoration: underline; /* Underline on hover */
+}
