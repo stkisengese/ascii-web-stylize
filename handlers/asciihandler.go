@@ -28,7 +28,7 @@ func AsciiArtHandler(w http.ResponseWriter, r *http.Request) {
 		err := os.MkdirAll("../banners", os.ModePerm)
 		if err != nil {
 			log.Println("Error creating banners directory:", err)
-			http.Error(w, "Error 500: Something went wrong, try again.", http.StatusInternalServerError)
+			ErrorHandler(w, "Internal server error", http.StatusInternalServerError)
 			return
 		}
 		// Get input text and banner from request.
@@ -37,15 +37,19 @@ func AsciiArtHandler(w http.ResponseWriter, r *http.Request) {
 
 		// Validate input
 		if text == "" || banner == "" {
+			log.Println("Invalid input")
 			ErrorHandler(w, "Bad request", http.StatusBadRequest)
+			return
+		}
+		if banner != "standard.txt" && banner != "shadow.txt" && banner != "thinkertoy.txt" {
+			log.Println("Invalid banner")
+			ErrorHandler(w, "Invalid banner", http.StatusInternalServerError)
 			return
 		}
 
 		// Read the banner file and generate ASCII art
 		lines, err := readBanner(banner)
 		if err != nil {
-			ErrorHandler(w, "Internal server error", http.StatusInternalServerError)
-			return
 			log.Printf("Error reading banner: %v", err)
 			log.Println("Initializing banner download")
 
@@ -53,14 +57,14 @@ func AsciiArtHandler(w http.ResponseWriter, r *http.Request) {
 			err = downloadBannerFile(banner)
 			if err != nil {
 				log.Println("Error downloading file:", err)
-				http.Error(w, "Error 500: Something went wrong, try again.", http.StatusInternalServerError)
+				ErrorHandler(w, "Internal server error", http.StatusInternalServerError)
 				return
 			}
 			log.Print("File downloaded successfully")
 			lines, err = readBanner(banner) // Read the new banner file
 			if err != nil {
 				log.Println("Error reading banner after downloading:", err)
-				http.Error(w, "Error 500: Something went wrong, try again.", http.StatusInternalServerError)
+				ErrorHandler(w, "Internal server error", http.StatusInternalServerError)
 				return
 			}
 		}
@@ -74,6 +78,7 @@ func AsciiArtHandler(w http.ResponseWriter, r *http.Request) {
 			for i := 0; i < 8; i++ {
 				for _, char := range words {
 					if !(char >= 32 && char <= 126) {
+						log.Println("Invalid character")
 						ErrorHandler(w, "Bad request", http.StatusBadRequest)
 						return
 					}
@@ -90,15 +95,18 @@ func AsciiArtHandler(w http.ResponseWriter, r *http.Request) {
 		data := AsciiArtData{Text: text, AsciiArt: asciiArt, Banner: banner}
 		tmpl, err := template.ParseFiles("../templates/asciiart.html")
 		if err != nil {
+			log.Println("Error parsing ASCII art template")
 			ErrorHandler(w, "Internal server error", http.StatusInternalServerError)
 			return
 		}
 
 		err = tmpl.Execute(w, data)
 		if err != nil {
+			log.Println("Error executing ASCII art template")
 			ErrorHandler(w, "Error Internal server error", http.StatusInternalServerError)
 		}
 	default:
+		log.Println("Invalid request method")
 		ErrorHandler(w, "Method not allowed", http.StatusMethodNotAllowed)
 	}
 }
