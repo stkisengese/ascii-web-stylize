@@ -1,4 +1,4 @@
-# ASCII ART WEB
+# ASCII ART WEB STYLIZE
 ## Description
 Ascii-art-web is a web-based implementation of the ascii-art project. It allows users to input text and select a banner to generate ascii art.
 
@@ -23,16 +23,27 @@ The program reads user input, processes it, and generates ASCII art based on the
 
 1.  Clone this repository to your local machine.
 ```go
-    https://learn.zone01kisumu.ke/git/skisenge/ascii-art-web
+    git clone https://learn.zone01kisumu.ke/git/mombewa/ascii-art-web-stylize.git
 ```
 2.  Ensure you have Go installed.
 3.  Navigate to the project directory.
 4.  Run the following command to start the server:
-```go
+```bash
+    cd server
     go run main.go
 ```
 5.  Open a web browser and visit `http://localhost:8080`.
-6.  Enter your text and choose a banner to see the generated ASCII art.
+    - This usage is also applicable:
+    ```bash
+    go run main.go [port]
+    ```
+      
+    - For example,
+    ```bash
+    go run main.go 8000
+    ```
+6.  Enter your text and choose a banner to see the generated ASCII art by clicking on the `Generate Ascii Art` button
+7.  Click `Back to HomePage` to navigate back to test other entries.
 
 ## Authors
 - [@mombewa](https://learn.zone01kisumu.ke/git/mombewa)
