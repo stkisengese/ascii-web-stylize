@@ -35,7 +35,6 @@ body {
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     margin: 1em;
-    /*margin-top: -3em; /* Move form upwards */
     width: 95%; /* Greatly increased width */
     max-width: 800px; /* Greatly increased max width */
 }
@@ -67,21 +66,30 @@ textarea {
 .radio [type="radio"]:hover{
     cursor: pointer;
 }
+.button [type="submit"]:hover {
+    background-color: green;
+}
+.button {
+    margin: 0 auto;
+    /* padding-left: 30%; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.button button {
+    margin: 0 auto;
+}
 .button [type="submit"]{
     text-align: center;
-    margin-top: 2em; /* Increased margin */
+    margin: 2em auto;
     font-size: 1.5em;
     border: 2px solid;
     padding: 1em 2em;
     box-sizing: border-box;
     width: 50%;
     cursor: pointer;
-    margin-left: 160px;
     background-color: #45a049;
-}
-
-.button [type="submit"]:hover {
-    background-color: green;
+    width: fit-content;
 }
 .footer {
     background-color: rgba(51, 51, 51, 0.8); /* Semi-transparent footer background */
@@ -108,12 +116,14 @@ textarea {
         padding: 2em;
         width: 95%;
         margin-block: 126px;
-       /* margin-top: 1.5em; /* Adjust for smaller screens */
     }
     .radio {
         flex-direction: column;
         align-items: center;
         display: grid;
+    }
+    .button>button {
+        width: 70%;
     }
 }
 @media (max-width: 360px) {
@@ -124,8 +134,36 @@ textarea {
         padding: 2em;
         width: 95%;
         margin-block: 126px;
-       /* margin-bottom: 100px;
-       /* margin-top: 1.5em; /* Adjust for smaller screens */
+    }
+    .radio {
+        flex-direction: column;
+        align-items: center;
+        display: grid;
+    }
+}
+@media (max-width: 1280px) {
+    .header {
+        position: absolute;
+    }
+    .form {
+        padding: 2em;
+        width: 95%;
+        margin-block: 126px;
+    }
+    .radio {
+        flex-direction: column;
+        align-items: center;
+        display: grid;
+    }
+}
+@media (max-width: 1024px) {
+    .header {
+        position: absolute;
+    }
+    .form {
+        padding: 2em;
+        width: 95%;
+        margin-block: 126px;
     }
     .radio {
         flex-direction: column;
@@ -141,7 +179,6 @@ textarea {
         padding: 2em;
         width: 95%;
         margin-block: 110px;
-       /* margin-top: 1.5em; /* Adjust for smaller screens */
     }
     .radio {
         flex-direction: column;
