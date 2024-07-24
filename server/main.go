@@ -25,6 +25,7 @@ func main() {
 	}
 	http.HandleFunc("/", handler)
 }
+
 // Handle different url paths.
 func handler(w http.ResponseWriter, r *http.Request) {
 	switch r.URL.Path {
