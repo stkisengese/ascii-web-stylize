@@ -1,12 +1,10 @@
-package handlers_test
+package handlers
 
 import (
 	"net/http"
 	"net/http/httptest"
 	"strings"
 	"testing"
-
-	"ascii/handlers"
 )
 
 // TestSuite represents a collection of test cases for Handlers.
@@ -31,7 +29,7 @@ func TestAsciiArtHandlerCases(t *testing.T) {
 	suite.TestAsciiArtHandlerInvalidMethod()
 }
 
-// TestIndexHandlerTableDriven tests the IndexHandler function with different scenarios.
+// Test cases for IndexHandler function.
 func (ts *TestSuite) TestIndexHandler() {
 	testCases := []struct {
 		name              string
@@ -68,7 +66,7 @@ func (ts *TestSuite) TestIndexHandler() {
 			}
 			// Create a ResponseRecorder to capture the handler's response
 			rr := httptest.NewRecorder()
-			handlers.IndexHandler(rr, req)
+			IndexHandler(rr, req)
 
 			// Check the response status code
 			if status := rr.Code; status != tc.expectedStatus {
@@ -94,7 +92,7 @@ func (ts *TestSuite) TestTemplateRendering() {
 
 	// Create a ResponseRecorder to capture the handler's response
 	rr := httptest.NewRecorder()
-	handlers.IndexHandler(rr, req)
+	IndexHandler(rr, req)
 
 	// Check the content type (expecting text/html)
 	if contentType := rr.Header().Get("Content-Type"); contentType != "text/html; charset=utf-8" {
@@ -149,7 +147,7 @@ func (ts *TestSuite) TestAsciiArtHandler() {
 			rr := httptest.NewRecorder()
 
 			// Call AsciiArtHandler
-			handlers.AsciiArtHandler(rr, req)
+			AsciiArtHandler(rr, req)
 
 			// Check the response status code
 			if status := rr.Code; status != tc.expectedStatusCode {
@@ -167,7 +165,7 @@ func (ts *TestSuite) TestAsciiArtHandlerInvalidMethod() {
 	}
 
 	rr := httptest.NewRecorder()
-	handlers.AsciiArtHandler(rr, req)
+	AsciiArtHandler(rr, req)
 
 	// Check the response status code (expecting 405 Method Not Allowed)
 	if status := rr.Code; status != http.StatusMethodNotAllowed {
