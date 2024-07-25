@@ -9,6 +9,10 @@ import (
 )
 
 func main() {
+	if len(os.Args) > 2 {
+		fmt.Println("Usage: go run . [port]")
+		os.Exit(1)
+	}
 	// Set up HTTP handlers
 	http.HandleFunc("/", handler)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("../static"))))
@@ -22,6 +26,7 @@ func main() {
 	err := http.ListenAndServe(":"+port, nil)
 	if err != nil {
 		fmt.Println("Error starting server:", err)
+		os.Exit(1)
 	}
 	http.HandleFunc("/", handler)
 }
